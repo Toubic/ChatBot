@@ -40,6 +40,16 @@ module.exports.ChatCommands = function(){
             client.action("Twibbe","- No politics.");
             client.action("Twibbe","- No religion.");
             client.action("Twibbe","- No NSFW.");
+        } else if (message.toLowerCase().trim().slice(0,4) === "!hey"){
+            client.action("Twibbe"," Hey " + message.trim().slice(5) + " HeyGuys");
+        };
+        if(message.toLowerCase().trim().slice(0,3) === "!so"){
+            client.action("Twibbe","Check out this awesome streamer ->  www.twitch.tv/" + message.trim().slice(4));
+        }
+        else if(message.toLowerCase().trim() === "!github"){
+            client.action("Twibbe","Check out my GitHub page -> github.com/Toubic");
+        } else if (message.toLowerCase().trim().slice(0,4) === "!"){
+            
         };
     });
 };
