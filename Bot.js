@@ -17,8 +17,7 @@ const options = {
     channels: ["Twibbe"],
 };
 
-
-const client = new tmi.client(options);
+const client = new tmi.client(options);1
 
 module.exports.Connect = function(){
 
@@ -30,33 +29,53 @@ module.exports.Connect = function(){
     });
 };
 
+function getCommand(sMessage){
+    var sCommand;
+
+    sCommand = sMessage.trim();
+
+    if(sCommand.indexOf(" ") > 0){
+        sCommand = sCommand.slice(0,sCommand.indexOf(" "));
+    }
+
+    return sCommand;
+};
+
 module.exports.ChatCommands = function(){
+    var sCommand;
+
     client.on("chat", (channel,user,message,self) => {
-        if(message.toLowerCase().trim() === "!hype"){
-            client.action("Twibbe","TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit");
+        sCommand = getCommand(message);
+        
+        switch(sCommand){
+            case "!hype":
+                client.action("Twibbe","TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit");
+                break;
+            case "!rules":
+                client.action("Twibbe","- Be friendly and use common sense.");
+                client.action("Twibbe","- No politics/religion/NSFW.");
+                break;
+            case "!hey":
+                client.action("Twibbe"," Hey " + message.trim().slice(5) + " HeyGuys");
+                break;
+            case "!so":
+                client.action("Twibbe","Check out this awesome streamer ->  www.twitch.tv/" + message.trim().slice(4));
+                break;
+            case "!github":
+                client.action("Twibbe","Check out my GitHub page -> github.com/Toubic");
+                break;
+            case "!gg":
+                client.action("Twibbe","GG!  HSWP SeemsGood");
+                break;
+            default:
+                client.action("Twibbe",user["display-name"] + " that command does not exist.");
         }
-        else if(message.toLowerCase().trim() === "!rules"){
-            client.action("Twibbe","- Be friendly and use common sense.");
-            client.action("Twibbe","- No politics.");
-            client.action("Twibbe","- No religion.");
-            client.action("Twibbe","- No NSFW.");
-        } else if (message.toLowerCase().trim().slice(0,4) === "!hey"){
-            client.action("Twibbe"," Hey " + message.trim().slice(5) + " HeyGuys");
-        };
-        if(message.toLowerCase().trim().slice(0,3) === "!so"){
-            client.action("Twibbe","Check out this awesome streamer ->  www.twitch.tv/" + message.trim().slice(4));
-        }
-        else if(message.toLowerCase().trim() === "!github"){
-            client.action("Twibbe","Check out my GitHub page -> github.com/Toubic");
-        } else if (message.toLowerCase().trim().slice(0,4) === "!"){
-            
-        };
     });
 };
 
 module.exports.ChatCommandsInterval = function(){
     setInterval(function(){ 
-        client.action("Twibbe","Please leave a follow if like the stream.");
+        client.action("Twibbe","Please leave a follow if you like the stream.");
     }, 3600000);
                 
 };
