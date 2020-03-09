@@ -1,5 +1,6 @@
 require('dotenv').config()
 const tmi = require("tmi.js");
+const Scry = require("scryfall-sdk");
 
 const options = {
     options: {
@@ -67,8 +68,26 @@ module.exports.ChatCommands = function(){
             case "!gg":
                 client.action("Twibbe","GG!  HSWP SeemsGood");
                 break;
+            case "!rcg":
+                Scry.Cards.random().then(result => client.action("Twibbe",result.name + " (" + result.set + ")")); 
+                break;
+            case "!rcqg":
+                Scry.Cards.random().then(result => client.action("Twibbe",result.flavor_text)); 
+                break;
+            case "!lands":
+                Scry.Catalog.landTypes().then((result) => { 
+                    result = result.filter(result => result === "Plains" || result === "Swamp" || result === "Mountain" || result === "Forest" || result === "Island") 
+                    result.forEach(result => client.action("Twibbe",result));
+                });
+                break;
+            case "!card": // TODO
+                message = message.slice(5).trim();
+                Scry.Cards.byName(message).then((result) => { 
+                    client.action("Twibbe",result.name + " (" + result.set + ") " + result.oracle_text + " " + result.flavor_text); 
+                });
+                break;
             default:
-                client.action("Twibbe",user["display-name"] + " that command does not exist.");
+                //client.action("Twibbe",user["display-name"] + " that command does not exist.");
         }
     });
 };
