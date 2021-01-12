@@ -78,7 +78,7 @@ module.exports.ChatCommands = function(){
             case "!rcqg":
                 Scry.Cards.random().then(result => client.action(options.channels[0],result.flavor_text)); 
                 break;
-            case "!card": // TODO
+            case "!card":
                 message = message.slice(5).trim();
                 Scry.Cards.byName(message).then((result) => { 
                     client.action(options.channels[0],result.name + " (" + result.set + ") " + result.oracle_text + " " + result.flavor_text); 
