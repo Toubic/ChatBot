@@ -84,7 +84,7 @@ module.exports.ChatCommands = function(){
                     client.action(options.channels[0],result.name + " (" + result.set + ") " + result.oracle_text + " " + result.flavor_text); 
                 });
                 break;
-            case "!song":
+            case "!song": // TODO
                 SongRequests.addSong();
                 break;
             default:
