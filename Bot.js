@@ -1,4 +1,5 @@
 require('dotenv').config()
+var SongRequests = require("./SongRequests.js");
 const tmi = require("tmi.js");
 const Scry = require("scryfall-sdk");
 
@@ -17,7 +18,7 @@ const options = {
     },
     channels: ["Twibbe"],
 };
-
+ 
 const client = new tmi.client(options);1
 
 module.exports.Connect = function(){
@@ -26,7 +27,7 @@ module.exports.Connect = function(){
 
     // Conect message
     client.on("connected",(address,port) => {
-        client.action("Twibbe", "Hello chat! imGlitch")
+        client.action(options.channels[0], "Hello chat! imGlitch")
     });
 };
 
@@ -50,41 +51,41 @@ module.exports.ChatCommands = function(){
         
         switch(sCommand){
             case "!hype":
-                client.action("Twibbe","TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit");
+                client.action(options.channels[0],"TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit TwitchLit");
                 break;
             case "!rules":
-                client.action("Twibbe","- Be friendly and use common sense.");
-                client.action("Twibbe","- No politics/religion/NSFW.");
+                client.action(options.channels[0],"- Be friendly and use common sense.");
+                client.action(options.channels[0],"- No politics/religion/NSFW.");
                 break;
             case "!hey":
-                client.action("Twibbe"," Hey " + message.trim().slice(5) + " HeyGuys");
+                client.action(options.channels[0]," Hey " + message.trim().slice(5) + " HeyGuys");
                 break;
             case "!so":
-                client.action("Twibbe","Check out this awesome streamer ->  www.twitch.tv/" + message.trim().slice(4));
+                client.action(options.channels[0],"Check out this awesome streamer ->  www.twitch.tv/" + message.trim().slice(4));
                 break;
             case "!github":
-                client.action("Twibbe","Check out my GitHub page -> github.com/Toubic");
+                client.action(options.channels[0],"Check out my GitHub page -> github.com/Toubic");
                 break;
+            case "!discord":
+                    client.action(options.channels[0],"Check out the Discord -> https://discord.gg/SjHtM4sW");
+                    break;
             case "!gg":
-                client.action("Twibbe","GG!  HSWP SeemsGood");
+                client.action(options.channels[0],"GG!  HSWP SeemsGood");
                 break;
             case "!rcg":
-                Scry.Cards.random().then(result => client.action("Twibbe",result.name + " (" + result.set + ")")); 
+                Scry.Cards.random().then(result => client.action(options.channels[0],result.name + " (" + result.set + ")")); 
                 break;
             case "!rcqg":
-                Scry.Cards.random().then(result => client.action("Twibbe",result.flavor_text)); 
-                break;
-            case "!lands":
-                Scry.Catalog.landTypes().then((result) => { 
-                    result = result.filter(result => result === "Plains" || result === "Swamp" || result === "Mountain" || result === "Forest" || result === "Island") 
-                    result.forEach(result => client.action("Twibbe",result));
-                });
+                Scry.Cards.random().then(result => client.action(options.channels[0],result.flavor_text)); 
                 break;
             case "!card": // TODO
                 message = message.slice(5).trim();
                 Scry.Cards.byName(message).then((result) => { 
-                    client.action("Twibbe",result.name + " (" + result.set + ") " + result.oracle_text + " " + result.flavor_text); 
+                    client.action(options.channels[0],result.name + " (" + result.set + ") " + result.oracle_text + " " + result.flavor_text); 
                 });
+                break;
+            case "!song":
+                SongRequests.addSong();
                 break;
             default:
                 //client.action("Twibbe",user["display-name"] + " that command does not exist.");
@@ -93,10 +94,14 @@ module.exports.ChatCommands = function(){
 };
 
 module.exports.ChatCommandsInterval = function(){
+    /*
     setInterval(function(){ 
-        client.action("Twibbe","Please leave a follow if you like the stream.");
-    }, 3600000);
-                
+        client.action(options.channels[0],"/clear");
+    }, 900000);
+    */
+    setInterval(function(){ 
+        client.action(options.channels[0],"Please leave a follow if you like the stream.");
+    }, 3600000);        
 };
 
 // user name client.action("Twibbe",user["display-name"]);
