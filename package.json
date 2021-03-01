@@ -4,12 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+=======
+    "spotify": "node ./web-api-auth-examples-master/authorization_code/app.js",
+>>>>>>> 1b61a2d (latest changes)
     "start": "nodemon -L index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Twibbe",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "scryfall-sdk": "^1.6.1",
+>>>>>>> 1b61a2d (latest changes)
     "tmi.js": "^1.5.0"
   },
   "devDependencies": {
