@@ -1,0 +1,21 @@
+{
+  "name": "twitchchatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "spotify": "node ./web-api-auth-examples-master/authorization_code/app.js",
+    "start": "nodemon -L index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Twibbe",
+  "license": "ISC",
+  "dependencies": {
+    "scryfall-sdk": "^1.6.1",
+    "tmi.js": "^1.5.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
+  }
+}
