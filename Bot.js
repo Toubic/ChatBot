@@ -66,9 +66,6 @@ module.exports.ChatCommands = function(){
             case "!github":
                 client.action(options.channels[0],"Check out my GitHub page -> github.com/Toubic");
                 break;
-            case "!discord":
-                    client.action(options.channels[0],"Check out the Discord -> https://discord.gg/SjHtM4sW");
-                    break;
             case "!gg":
                 client.action(options.channels[0],"GG!  HSWP SeemsGood");
                 break;
